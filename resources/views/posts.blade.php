@@ -9,6 +9,8 @@
     @else
         <a class="btn btn-primary disabled">next</a>
     @endif
+
+    {{$posts->links()}}
     <div class="row row-cols-4">
         @foreach($posts as $post)
             <div class="col mb-3">

@@ -18,7 +18,7 @@ class PublicController extends Controller
     public function posts(){
         //$posts = Post::select(['title', 'id'])->where('title','LIKE', '%et %')->where('id', '<', 500)->limit(10)->orderBy('title', 'desc')->get();
 
-        $posts = Post::simplePaginate(16);
+        $posts = Post::paginate(16);
         return view('posts', compact('posts'));
     }
 }
