@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -43,7 +44,7 @@ class PostController extends Controller
 
 
         $post = new Post($validated);
-
+        // @todo add user to post
 //        $post->title = $request->input('title');
 //        $post->body = $request->input('body');
         $post->save();
@@ -69,19 +70,23 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('posts.edit', compact('post'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Post  $post
+     * @param UpdatePostRequest $request
+     * @param \App\Models\Post $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(UpdatePostRequest $request, Post $post)
     {
-        //
+//        $post->fill($request->validated());
+//        $post->save();
+
+        $post->update($request->validated());
+        return redirect()->to('/admin');
     }
 
     /**
@@ -92,6 +97,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        return redirect()->to('/admin');
     }
 }

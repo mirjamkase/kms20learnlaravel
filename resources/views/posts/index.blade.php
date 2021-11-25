@@ -20,8 +20,8 @@
                     <td>{{$post->updated_at}}</td>
                     <td>
                         <a class="btn btn-primary">View</a>
-                        <a class="btn btn-warning">Edit</a>
-                        <a class="btn btn-danger">Delete</a>
+                        <a class="btn btn-warning" href="/admin/posts/{{$post->id}}/edit">Edit</a>
+                        <a class="btn btn-danger" href="/admin/posts/{{$post->id}}/delete">Delete</a>
                     </td>
                 </tr>
             @endforeach

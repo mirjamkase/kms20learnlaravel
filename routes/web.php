@@ -21,6 +21,10 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/admin', [\App\Http\Controllers\PostController::class, 'index']);
     Route::get('/admin/posts/create', [\App\Http\Controllers\PostController::class, 'create']);
     Route::post('/admin/posts', [\App\Http\Controllers\PostController::class, 'store']);
+    Route::get('/admin/posts/{post}/edit', [\App\Http\Controllers\PostController::class, 'edit']);
+    Route::post('/admin/posts/{post}', [\App\Http\Controllers\PostController::class, 'update']);
+    Route::get('/admin/posts/{post}/delete', [\App\Http\Controllers\PostController::class, 'destroy']);
+
 
     Route::get('/user/profile', function() {
         return view('profile');
