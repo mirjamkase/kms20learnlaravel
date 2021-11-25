@@ -1,7 +1,7 @@
 @extends('layout')
 @section('title', 'Posts')
 @section('content')
-    <form action="/admin/posts" method="POST">
+    <form action="{{ route('posts.store') }}" method="POST">
         @csrf
         @error('title')
             @foreach($errors->get('title') as $error)

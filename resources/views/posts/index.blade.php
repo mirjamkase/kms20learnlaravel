@@ -1,7 +1,7 @@
 @extends('layout')
 @section('title', 'Posts')
 @section('content')
-    <a class="btn btn-primary my-3" href="/admin/posts/create">Add Post</a>
+    <a class="btn btn-primary my-3" href="{{ route('posts.create' ) }}">Add Post</a>
     {{$posts->links()}}
     <table class="table table-striped">
         <thead>
@@ -19,9 +19,14 @@
                     <td>{{$post->created_at}}</td>
                     <td>{{$post->updated_at}}</td>
                     <td>
-                        <a class="btn btn-primary">View</a>
-                        <a class="btn btn-warning" href="/admin/posts/{{$post->id}}/edit">Edit</a>
-                        <a class="btn btn-danger" href="/admin/posts/{{$post->id}}/delete">Delete</a>
+                        <form action="{{ route('posts.destroy', ['post'=> $post->id] ) }}" method="POST">
+                            <a class="btn btn-primary">View</a>
+                            <a class="btn btn-warning" href="{{ route('posts.edit', ['post'=> $post->id] ) }}">Edit</a>
+                            @method('DELETE')
+                            @csrf
+                            <input type="submit" class="btn btn-danger" value="Delete">
+                        </form>
+
                     </td>
                 </tr>
             @endforeach

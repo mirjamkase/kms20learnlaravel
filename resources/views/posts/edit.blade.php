@@ -1,7 +1,8 @@
 @extends('layout')
 @section('title', 'Posts')
 @section('content')
-    <form action="/admin/posts/{{$post->id}}" method="POST">
+    <form action="{{ route('posts.update', ['post'=> $post->id] ) }}" method="POST">
+        @method('PUT')
         @csrf
         @error('title')
         @foreach($errors->get('title') as $error)

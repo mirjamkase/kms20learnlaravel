@@ -48,7 +48,7 @@ class PostController extends Controller
 //        $post->title = $request->input('title');
 //        $post->body = $request->input('body');
         $post->save();
-        return redirect()->to('/admin');
+        return redirect()->route('posts.index');
     }
 
     /**
@@ -86,7 +86,7 @@ class PostController extends Controller
 //        $post->save();
 
         $post->update($request->validated());
-        return redirect()->to('/admin');
+        return redirect()->route('posts.index');
     }
 
     /**
@@ -98,6 +98,6 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         $post->delete();
-        return redirect()->to('/admin');
+        return redirect()->route('posts.index');
     }
 }
