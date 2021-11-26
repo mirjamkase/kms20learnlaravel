@@ -15,7 +15,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::paginate();
+
+        $posts = auth()->user()->posts()->paginate();
         return view('posts.index', compact('posts'));
     }
 
@@ -44,7 +45,8 @@ class PostController extends Controller
 
 
         $post = new Post($validated);
-        // @todo add user to post
+        //$post->user_id = auth()->user()->id;
+        $post->user()->associate(auth()->user());
 //        $post->title = $request->input('title');
 //        $post->body = $request->input('body');
         $post->save();

@@ -19,7 +19,9 @@ class DatabaseSeeder extends Seeder
         $user->email = env('DEFAULT_USER_EMAIL', 'user@user.user');
         $user->password = bcrypt(env('DEFAULT_USER_PASSWORD', 'password'));
         $user->save();
-        // \App\Models\User::factory(10)->create();
+
+        $this->call(UserSeeder::class);
         $this->call(PostSeeder::class);
+        $this->call(ImageSeeder::class);
     }
 }
