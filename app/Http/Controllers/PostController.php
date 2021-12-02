@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdatePostRequest;
+use App\Models\Image;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
 
 class PostController extends Controller
 {
@@ -38,9 +42,11 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+
         $validated = $request->validate([
             'title' => 'required',
-            'body' => 'required'
+            'body' => 'required',
+            'image.*' => 'image'
         ]);
 
 
@@ -50,6 +56,15 @@ class PostController extends Controller
 //        $post->title = $request->input('title');
 //        $post->body = $request->input('body');
         $post->save();
+        if(isset($validated['image'])) {
+            foreach ($validated['image'] as $img) {
+                /** @var UploadedFile $img */
+                $image = new Image();
+                $path = $img->store('public');
+                $image->path = Storage::url($path);
+                $post->images()->save($image);
+            }
+        }
         return redirect()->route('posts.index');
     }
 
