@@ -24,6 +24,8 @@
                         <h5 class="card-title">{{$post->title}}</h5>
                         <p class="card-text">{{$post->snippet}}</p>
                         <p class="text-muted">{{$post->user->name}}</p>
+                        <p class="text-muted datetime">{{$post->created_at->toISOString()}}</p>
+                        <p class="text-muted">{{$post->created_at->diffForHumans()}}</p>
                         <a href="#" class="btn btn-primary">Go somewhere</a>
                     </div>
                 </div>
@@ -32,3 +34,19 @@
     </div>
 
 @endsection
+@push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/luxon@2.1.1/build/global/luxon.min.js"></script>
+    <script>
+        let DateTime = luxon.DateTime;
+        let datesEls = document.querySelectorAll('.datetime');
+        // datesEls.forEach(function (el) {
+        //
+        // });
+        datesEls.forEach(el => {
+            let currentTime = DateTime.fromISO(el.innerHTML, { zone: "UTC" }).setZone(DateTime.local().zoneName);
+            el.innerHTML = currentTime;
+        });
+    </script>
+@endpush
+
+
